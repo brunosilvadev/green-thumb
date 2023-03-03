@@ -53,12 +53,13 @@ const EXAMPLE_DATA: Species[] = [
  * (including sorting, pagination, and filtering).
  */
 export class SpeciesTableDataSource extends DataSource<Species> {
-  data: Species[] = EXAMPLE_DATA;
+  data: Species[];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(dataset:Species[]) {
     super();
+    this.data = dataset;
   }
 
   /**

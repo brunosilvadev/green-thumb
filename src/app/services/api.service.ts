@@ -14,5 +14,6 @@ export class ApiService {
   constructor(private client:HttpClient) { }
   async getSpecies()
   {
-    return await lastValueFrom(this.client.get<Species>(this.baseUri + "get-species"));
-  }}
+    return await lastValueFrom(this.client.get<Species[]>(this.baseUri + "get-species"));
+  }
+}
