@@ -16,7 +16,7 @@ export class SpeciesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Species>;
-  dataSource: SpeciesTableDataSource = {} as SpeciesTableDataSource;
+  dataSource: SpeciesTableDataSource = new SpeciesTableDataSource([] as Species[]);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name','scientific-name'];
@@ -26,8 +26,10 @@ export class SpeciesTableComponent implements AfterViewInit {
   }
 
   async refresh() {
-    let d = await this.svc.getSpecies();
-    this.dataSource = new SpeciesTableDataSource(d);
+    await this.svc.getSpecies().then( species => {
+      this.dataSource = new SpeciesTableDataSource(species);
+    })
+    .catch( err => console.log(err));
   }
 
   ngAfterViewInit(): void {
