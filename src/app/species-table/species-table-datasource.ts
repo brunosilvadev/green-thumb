@@ -5,55 +5,9 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Species } from '../model/Species';
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: Species[] = [
-    {
-      speciesId: 1,
-      commonName: "African elephant",
-      scientificName: "Loxodonta africana",
-      cares: [
-        {
-          careId: 1,
-          level: 2,
-          careType: 1,
-          speciesId: 1
-        },
-        {
-          careId: 2,
-          level: 3,
-          careType: 2,
-          speciesId: 1
-        }
-      ]
-    },
-    {
-      speciesId: 2,
-      commonName: "Polar bear",
-      scientificName: "Ursus maritimus",
-      cares: [
-        {
-          careId: 3,
-          level: 2,
-          careType: 1,
-          speciesId: 2
-        },
-        {
-          careId: 4,
-          level: 3,
-          careType: 2,
-          speciesId: 2
-        }
-      ]
-    }
-];
 
-/**
- * Data source for the SpeciesTable view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class SpeciesTableDataSource extends DataSource<Species> {
-  data: Species[] = EXAMPLE_DATA;
+  data: Species[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -61,15 +15,8 @@ export class SpeciesTableDataSource extends DataSource<Species> {
     super();
   }
 
-  /**
-   * Connect this data source to the table. The table will only update when
-   * the returned stream emits new items.
-   * @returns A stream of the items to be rendered.
-   */
   connect(): Observable<Species[]> {
     if (this.paginator && this.sort) {
-      // Combine everything that affects the rendered data into one update
-      // stream for the data-table to consume.
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
           return this.getPagedData(this.getSortedData([...this.data ]));
@@ -79,16 +26,8 @@ export class SpeciesTableDataSource extends DataSource<Species> {
     }
   }
 
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
   disconnect(): void {}
 
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getPagedData(data: Species[]): Species[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -114,9 +53,4 @@ export class SpeciesTableDataSource extends DataSource<Species> {
       }
     });
   }
-}
-
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

@@ -16,7 +16,8 @@ export class SpeciesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Species>;
-  dataSource: SpeciesTableDataSource  = new SpeciesTableDataSource();
+  dataSource: SpeciesTableDataSource = new SpeciesTableDataSource();
+  data: Species[] = [] as Species[];
   loaded: boolean = false;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -28,6 +29,7 @@ export class SpeciesTableComponent implements AfterViewInit {
 
   async refresh() {
     await this.svc.getSpecies().then( species => {
+      this.data = species;
       this.loaded = true;
     })
     .catch( err => console.log(err));

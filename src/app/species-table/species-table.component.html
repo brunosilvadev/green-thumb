@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table mat-table [dataSource]="data" class="full-width-table" matSort aria-label="Elements" *ngIf="loaded">
     <!-- Id Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
@@ -16,7 +16,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="10"
+  <!-- <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
-  </mat-paginator>
+  </mat-paginator> -->
 </div>

@@ -8,6 +8,7 @@ import { SpeciesTableComponent } from './species-table/species-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatCardModule } from '@angular/material/card'
 import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
