@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { lastValueFrom } from 'rxjs';
-import { Species } from '../model/Species';
-import { ApiService } from '../services/api.service';
+import { Species } from '../../model/Species';
+import { ApiService } from '../../services/api.service';
 import { SpeciesTableDataSource } from './species-table-datasource';
 
 @Component({
