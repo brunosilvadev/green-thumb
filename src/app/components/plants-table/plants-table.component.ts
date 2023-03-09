@@ -11,14 +11,14 @@ import { Plant } from '../../model/Plant'
 export class PlantsTableComponent implements OnInit {
 
   loaded:boolean = false;
-  plants:Species[] = [];
+  plants:Plant[] = [];
   constructor(private svc: ApiService) {
     this.refresh();
   }
 
   async refresh() {
-    await this.svc.getSpecies().then( species => {
-      this.plants = species;
+    await this.svc.listPlants().then( plants => {
+      this.plants = plants;
       this.loaded = true;
     })
     .catch( err => console.log(err));
